@@ -389,8 +389,9 @@ class BCS(nn.Module):
             g = torch.Generator(device=dev)
             g.manual_seed(self.step)
             proj_shape = (z1.size(1), self.num_slices)
-            A = torch.randn(proj_shape, device=dev, generator=g)
+            A = torch.randn(proj_shape, device=dev, generator=g, dtype=z1.dtype)
             A /= A.norm(p=2, dim=0)
+
         view1 = z1 @ A
         view2 = z2 @ A
 
